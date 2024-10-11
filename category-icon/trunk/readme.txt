@@ -27,10 +27,6 @@ It is up to you to query and output in your theme using the provided getter func
 == Changelog ==
 
 = 1.0.1 =
-* Added sanitization for SVG uploads to prevent Cross-Site Scripting (XSS) vulnerabilities.
-* Implemented secure file naming for uploaded SVG files by appending a random suffix to filenames.
-* Enhanced upload handling to ensure SVG files are sanitized in place without altering the original upload path.
-* Improved compatibility with WordPress file upload checks.
 
 = 1.0.0 =
 * Ensure compatibility with WordPress 5.9

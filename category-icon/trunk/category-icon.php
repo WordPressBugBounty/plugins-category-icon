@@ -3,7 +3,7 @@
  * Plugin Name: Category Icon
  * Plugin URI:  http://pixelgrade.com
  * Description: Easily attach an icon and/or an image to a category, tag or any other taxonomy term.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Pixelgrade
  * Author URI: http://pixelgrade.com
  * Author Email: contact@pixelgrade.com
