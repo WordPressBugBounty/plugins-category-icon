@@ -3,7 +3,7 @@
  * Plugin Name: Category Icon
  * Plugin URI:  http://pixelgrade.com
  * Description: Easily attach an icon and/or an image to a category, tag or any other taxonomy term.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Pixelgrade
  * Author URI: http://pixelgrade.com
  * Author Email: contact@pixelgrade.com
@@ -30,7 +30,7 @@ class PixTaxonomyIconsPlugin {
 	protected $plugin_basepath = null;
 	protected $plugin_baseurl = null;
 	protected $plugin_screen_hook_suffix = null;
-	protected $version = '1.0.2';
+	protected $version = '1.0.3';
 	protected $plugin_slug = 'category-icon';
 	protected $plugin_key = 'category-icon';
 
@@ -298,7 +298,7 @@ class PixTaxonomyIconsPlugin {
 			<th scope="row" valign="top"><label for="term_icon_value"><?php esc_html_e( 'Icon', $this->plugin_slug ); ?></label></th>
 			<td>
 				<div class="open_term_icon_preview">
-					<input type="hidden" name="term_icon_value" id="term_icon_value" value="<?php echo $current_value; ?>">
+					<input type="hidden" name="term_icon_value" id="term_icon_value" value="<?php echo esc_attr( $current_value ); ?>">
 					<?php if ( empty( $current_value ) ) { ?>
 						<span class="open_term_icon_upload button button-secondary">
 							<?php _e( 'Select Icon', $this->plugin_slug );?>
@@ -326,7 +326,7 @@ class PixTaxonomyIconsPlugin {
 			<th scope="row" valign="top"><label for="term_image_value"><?php esc_html_e( 'Image', 'category-icon' ); ?></label></th>
 			<td>
 				<div class="open_term_image_preview">
-					<input type="hidden" name="term_image_value" id="term_image_value" value="<?php echo $current_image_value; ?>">
+					<input type="hidden" name="term_image_value" id="term_image_value" value="<?php echo esc_attr( $current_image_value ); ?>">
 					<?php if ( empty( $current_image_value ) ) { ?>
 						<span class="open_term_image_upload button button-secondary">
 							<?php _e( 'Select Image', 'category-icon' );?>
@@ -349,7 +349,10 @@ class PixTaxonomyIconsPlugin {
 
 	function save_taxonomy_custom_meta ( $term_id ) {
 		if ( isset( $_POST['term_icon_value'] ) ) {
-			$value = $_POST['term_icon_value'];
+			$value = absint( wp_unslash( $_POST['term_icon_value'] ) );
+			if ( $value <= 0 ) {
+				$value = '';
+			}
 			$current_value = get_term_meta( $term_id, 'pix_term_icon', true );
 
 			if ( empty( $current_value ) ) {
@@ -361,7 +364,10 @@ class PixTaxonomyIconsPlugin {
 		}
 
 		if ( isset( $_POST['term_image_value'] ) ) {
-			$value_image = $_POST['term_image_value'];
+			$value_image = absint( wp_unslash( $_POST['term_image_value'] ) );
+			if ( $value_image <= 0 ) {
+				$value_image = '';
+			}
 			$current_value_image = get_term_meta( $term_id, 'pix_term_image', true );
 
 			if ( empty( $current_value_image ) ) {
